@@ -3,6 +3,10 @@ export default defineNuxtConfig({
     srcDir: 'app',
     compatibilityDate: '2025-01-06',
 
+    app: {
+        baseURL: '/portfolio/',
+    },
+
     future: {
         compatibilityVersion: 4,
     },
