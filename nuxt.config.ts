@@ -7,7 +7,7 @@ export default defineNuxtConfig({
         baseURL: '/portfolio/',
     },
 
-    routeRules: { '/': { prerender: true } },
+    nitro: { static: true },
 
     future: {
         compatibilityVersion: 4,
