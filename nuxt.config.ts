@@ -7,6 +7,8 @@ export default defineNuxtConfig({
         baseURL: '/portfolio/',
     },
 
+    routeRules: { '/': { prerender: true } },
+
     future: {
         compatibilityVersion: 4,
     },
