@@ -7,6 +7,18 @@ export default defineNuxtConfig({
         baseURL: '/portfolio/',
     },
 
+    image: {
+        domains: [],
+        baseURL: '/portfolio',
+        dir: 'public',
+    },
+
+    runtimeConfig: {
+        public: {
+            baseURL: '/portfolio',
+        },
+    },
+
     future: {
         compatibilityVersion: 4,
     },
@@ -29,10 +41,6 @@ export default defineNuxtConfig({
 
     features: {
         inlineStyles: true,
-    },
-
-    image: {
-        domains: [],
     },
 
     unhead: {
