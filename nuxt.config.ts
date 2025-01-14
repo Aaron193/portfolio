@@ -7,8 +7,6 @@ export default defineNuxtConfig({
         baseURL: '/portfolio/',
     },
 
-    nitro: { static: true },
-
     future: {
         compatibilityVersion: 4,
     },

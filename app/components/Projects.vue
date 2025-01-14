@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const config = useRuntimeConfig();
+const baseURL = config.app.baseURL;
+
 const projects = [
     {
         title: 'Multiplayer Survival Game',
@@ -46,7 +49,7 @@ const projects = [
                 >
                     <!-- Project Image -->
                     <div class="relative h-48 overflow-hidden">
-                        <img :src="project.image" :alt="project.title" class="w-full h-full object-cover filter blur-sm" />
+                        <img :src="`${baseURL}${project.image}`" :alt="project.title" class="w-full h-full object-cover filter blur-sm" />
                         <span class="absolute top-2 left-2 bg-gray-800 text-white text-base px-2 py-1 rounded">{{ project.date }}</span>
                     </div>
 
