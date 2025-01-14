@@ -5,18 +5,19 @@ export default defineNuxtConfig({
 
     app: {
         baseURL: '/portfolio/',
+        cdnURL: '/portfolio/',
     },
 
     image: {
         domains: [],
         baseURL: '/portfolio',
-        dir: 'public',
     },
 
-    runtimeConfig: {
-        public: {
-            baseURL: '/portfolio',
+    nitro: {
+        prerender: {
+            failOnError: false,
         },
+        preset: 'github_pages',
     },
 
     future: {
