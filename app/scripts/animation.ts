@@ -6,7 +6,7 @@ import { Mouse } from './Mouse';
 // Simulation parameters
 let _NUM_BOIDS = 150;
 const _BOID_SIZE = 5;
-const _BOID_SPEED = 1 / 2;
+const _BOID_SPEED = 15;
 const _BOID_ACCELERATION = _BOID_SPEED / 5.0;
 
 // Force multipliers
@@ -125,7 +125,7 @@ class Simulation {
             const alignment = VEC_alignment.reset();
             const separation = VEC_separation.reset();
             const cohesion = VEC_cohesion.reset();
-            const wander = VEC_wander.setXY(Math.random() * 2 - 1, Math.random() * 2 - 1).norm();
+            const wander = VEC_wander.setXY(rand(-1, 1), rand(-1, 1)).norm();
             const mouseAttraction = VEC_mouse.reset();
 
             let alignmentCount = 0;
@@ -202,8 +202,8 @@ class Simulation {
             boid.velocity.scale(_BOID_SPEED);
 
             // Update position
-            boid.position.x += boid.velocity.x;
-            boid.position.y += boid.velocity.y;
+            boid.position.x += boid.velocity.x * dt;
+            boid.position.y += boid.velocity.y * dt;
 
             // Wrap around screen edges
             if (boid.position.x < -_BOID_SIZE) boid.position.x = this.canvas.width + _BOID_SIZE;
@@ -302,7 +302,7 @@ class Boid {
 
     constructor(x: number, y: number) {
         this.position = new Vec2(x, y);
-        this.velocity = new Vec2(Math.random() * 2 - 1, Math.random() * 2 - 1).norm();
+        this.velocity = new Vec2(rand(-1, 1), rand(-1, 1)).norm();
     }
 
     insert(grid: SpatialHash) {

@@ -3,13 +3,13 @@ import { onMounted, ref } from 'vue';
 import { setup } from '~/scripts/animation';
 
 useSeoMeta({
-    title: 'Aaron Mark | Portfolio',
+    title: 'Aaron Mark | Personal Portfolio',
     description: 'Personal portfolio of Aaron Mark',
-    ogTitle: 'Aaron Mark | Portfolio',
+    ogTitle: 'Aaron Mark | Personal Portfolio',
     ogDescription: 'Personal portfolio of Aaron Mark',
     // ogImage: '',
     ogUrl: `http:localhost:3000`,
-    twitterTitle: 'Aaron Mark | Portfolio',
+    twitterTitle: 'Aaron Mark | Personal Portfolio',
     twitterDescription: 'Personal portfolio of Aaron Mark',
     // twitterImage: '',
     twitterCard: 'summary',
@@ -26,41 +26,61 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="relative min-h-screen">
-        <canvas ref="canvasRef" class="fixed inset-0"></canvas>
-        <section class="relative z-10 flex items-center justify-center min-h-screen">
+    <section class="relative min-h-screen">
+        <canvas ref="canvasRef" class="absolute inset-0 w-full h-full"></canvas>
+        <div class="relative z-10 flex items-center justify-center min-h-screen">
             <div class="mx-auto max-w-xl space-y-8 text-center">
+                <!-- this website is under construction -->
+                <div class="text-red-500 flex justify-center space-x-2 font-bold">
+                    <span>&lt🪚&gt</span>
+                    <span class="text-red-300"> This website is currently under construction</span>
+                    <span>&lt/🪚&gt</span>
+                </div>
                 <div class="mb-5 space-y-8">
                     <h1 class="text-5xl font-bold tracking-tight text-white sm:text-6xl">
                         Hello, my name is
                         <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-500">Aaron Mark</span>
                     </h1>
                     <div class="text-gray-300 p-2 shadow-xl">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, est. Temporibus quia iste velit vero, consequuntur eius
-                        dolores magnam nam tempora optio error aliquam officiis. Nam cupiditate earum labore voluptas?
+                        I'm currently a student studying <strong>Computer Science & Engineering</strong> at the University of Connecticut. I have a
+                        passion for programming and learning how things work. I started learning how to code by reverse engineering web games, and
+                        found a passion for the complex systems and underlying code that makes them up.
                     </div>
                 </div>
+
                 <div class="buttons flex justify-center gap-8">
-                    <button class="btn p-0.5 rounded-xl bg-gradient-to-r from-blue-500 to-green-500">
-                        <span class="block px-4 py-2 rounded-xl bg-gray-950">Explore Projects </span>
+                    <button class="btn min-w-[150px] p-0.5 rounded-xl bg-gradient-to-r from-blue-500 to-green-500">
+                        <span class="block px-4 py-2 rounded-xl bg-gray-950">View Projects </span>
                     </button>
-                    <button class="btn px-4 py-2 rounded-xl bg-gradient-to-r text-gray-950 from-blue-500 to-green-500 font-extrabold">
+                    <button class="btn min-w-[150px] px-4 py-2 rounded-xl bg-gradient-to-r text-gray-950 from-blue-500 to-green-500 font-extrabold">
                         Contact Me
                     </button>
                 </div>
-            </div>
-        </section>
-        <section>
-            <div class="my-10">
-                Hello Section
 
-                <div class="my-20">1234</div>
-                <div class="my-20">1234</div>
-                <div class="my-20">1234</div>
-                <div class="my-20">1234</div>
+                <!-- Social buttons -->
+                <div class="flex items-center justify-center space-x-4">
+                    <a
+                        href="https://github.com/aaron193"
+                        class="w-12 h-12 rounded-full border-2 border-gray-800 flex items-center justify-center"
+                        target="_blank"
+                    >
+                        <Icon name="mdi:github" size="24" />
+                    </a>
+                    <a
+                        href="https://linkedin.com/in/aaronmark05"
+                        class="w-12 h-12 rounded-full border-2 border-gray-800 flex items-center justify-center"
+                        target="_blank"
+                    >
+                        <Icon name="mdi:linkedin" size="24" />
+                    </a>
+                </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <Timeline />
+    <Projects />
 </template>
 
 <style scoped></style>
