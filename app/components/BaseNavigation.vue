@@ -10,13 +10,13 @@
                     <NuxtLink to="/" class="gradient-underline">Home</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/projects" class="gradient-underline">Projects</NuxtLink>
+                    <NuxtLink to="/" class="gradient-underline">Projects</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/about" class="gradient-underline">About</NuxtLink>
+                    <NuxtLink to="/" class="gradient-underline">About</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/contact" class="gradient-underline">Contact</NuxtLink>
+                    <NuxtLink to="/" class="gradient-underline">Contact</NuxtLink>
                 </li>
             </ul>
         </nav>
