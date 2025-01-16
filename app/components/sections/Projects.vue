@@ -23,7 +23,7 @@ const projects = [
     {
         title: 'Puzzle Rush',
         description:
-            "Puzzle Rush is a web-based puzzle game that designed for the 2023 Technology Student Association's annual Game-Design competition. The game was developed by a team of dedicated artists and coders, ultimately winning 2nd place.",
+            "Puzzle Rush is a web-based puzzle game that was designed for the 2023 Technology Student Association's annual Game-Design competition. The game was developed by a team of dedicated artists and coders, ultimately winning 2nd place.",
         image: '/project3.png',
         technologies: ['Node.js', 'Typescript', 'Express', 'HTML', 'CSS'],
         github: 'https://github.com/Aaron193/puzzle-rush',
