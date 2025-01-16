@@ -3,17 +3,20 @@ const timelineData = [
     {
         year: 'Nov 2024',
         title: 'Student Web Developer',
-        content: 'Developing modern web applications using the Laravel web framework',
+        content:
+            'Developing modern web applications using the Laravel web framework for UConn <a class="text-gray-300 underline" target="_blank" href="https://dxgroup.core.uconn.edu/">Internal Insights & Innovation.</a>',
     },
     {
         year: 'Aug 2023',
         title: 'University of Connecticut',
-        content: 'Started studying Computer Science & Engineering as a freshman',
+        content:
+            "Joined the Computer Science & Engineering Class of 2027, achieving <strong>Dean's List</strong> honors three times in the College of Engineering.",
     },
     {
         year: 'Winter 2021',
         title: 'Ski Instructor',
-        content: 'Taught skiing fundamentals to beginners at a Ski Sundown',
+        content:
+            'Taught the fundamentals of skiing to children aged 4-14 at <a class="text-gray-300 underline" target="blank" href="https://skisundown.com/">Ski Sundown</a>. Used progressional learning techniques while maintaining a fun and safe environment.',
     },
     {
         year: 'Oct 2020',
@@ -50,7 +53,7 @@ const timelineData = [
                     >
                         <div class="text-base font-semibold text-cyan-500">{{ event.year }}</div>
                         <h3 class="text-xl font-bold mt-1">{{ event.title }}</h3>
-                        <p class="mt-2 text-gray-400">{{ event.content }}</p>
+                        <p class="mt-2 text-gray-400" v-html="event.content"></p>
                     </div>
                 </div>
             </div>

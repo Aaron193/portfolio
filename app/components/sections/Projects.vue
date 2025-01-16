@@ -46,8 +46,8 @@ const projects = [
                 >
                     <!-- Project Image -->
                     <div class="relative h-48 overflow-hidden">
-                        <NuxtImg :src="project.image" :alt="project.title" class="w-full h-full object-cover filter blur-sm" loading="lazy" />
-                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-base px-2 py-1 rounded">{{ project.date }}</span>
+                        <NuxtImg :src="project.image" :alt="project.title" class="w-full h-full object-cover filter" loading="lazy" />
+                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-base px-2 py-1 rounded font-bold">{{ project.date }}</span>
                     </div>
 
                     <!-- Project Info -->
