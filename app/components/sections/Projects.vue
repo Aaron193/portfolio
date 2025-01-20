@@ -5,7 +5,7 @@ const projects = [
         description:
             'A multiplayer survival game over two years in the making. This project is closed source, and has yet to been released. Some development features include: bit-level packet serialization, entity interpolation, spatial partitioning, network view culling, and more.',
         image: '/project1.jpg',
-        technologies: ['Node.js', 'Typescript', 'WebSockets', 'HTML', 'CSS', 'closed-source'],
+        technologies: ['Node.js', 'Typescript', 'uWebSockets', 'HTML', 'CSS', 'closed-source'],
         github: '',
         demo: '',
         date: '2022 - now',
@@ -23,18 +23,38 @@ const projects = [
     {
         title: 'Puzzle Rush',
         description:
-            "Puzzle Rush is a web-based puzzle game that designed for the 2023 Technology Student Association's annual Game-Design competition. The game was developed by a team of dedicated artists and coders, ultimately winning 2nd place.",
+            "Puzzle Rush is a web-based puzzle game that was designed for the 2023 Technology Student Association's annual Game-Design competition. The game was developed by a team of dedicated artists and coders, ultimately winning 2nd place.",
         image: '/project3.png',
         technologies: ['Node.js', 'Typescript', 'Express', 'HTML', 'CSS'],
         github: 'https://github.com/Aaron193/puzzle-rush',
         demo: 'https://aaron193.github.io/puzzle-rush/',
         date: '2023',
     },
+    {
+        title: 'Flashcard Studying App',
+        description:
+            'This project is a web-based flashcard studying application that allows users to create, edit, and study flashcards. This app was built in order to fulfill my High School mastery experience requirement, and is one of the first websites I have built.',
+        image: '/project4.png',
+        technologies: ['Node.js', 'JavaScript', 'Express', 'HTML', 'CSS'],
+        github: 'https://github.com/Aaron193/flashcard-study-website',
+        demo: 'https://aaron193.github.io/flashcard-study-website/',
+        date: '2022',
+    },
+    {
+        title: 'Asteroids',
+        description:
+            'Asteroids is a multiplayer web-based game that is very early in development. I began this project with the goal of creating a simple, yet addictive game that can be played with friends. I also wanted to provide an open-source resource for others who want to learn the basics of multiplayer development.',
+        image: '/project5.png',
+        technologies: ['Node.js', 'TypeScript', 'uWebSockets', 'bitecs (ECS)', 'Box2D (Physics)'],
+        github: 'https://github.com/Aaron193/asteroids',
+        demo: '',
+        date: '2022',
+    },
 ];
 </script>
 
 <template>
-    <section class="py-16 px-4 bg-gray-950">
+    <section id="projects" class="py-16 px-4 bg-gray-950">
         <div class="max-w-6xl mx-auto">
             <h1 class="text-4xl md:text-5xl font-bold text-center mb-12">Projects</h1>
 

@@ -27,7 +27,7 @@ const timelineData = [
 </script>
 
 <template>
-    <div class="flex flex-col items-center px-4">
+    <section id="timeline" class="flex flex-col items-center px-4">
         <h1 class="text-4xl md:text-5xl font-bold py-8 md:py-12">Timeline</h1>
 
         <div class="w-full max-w-4xl relative">
@@ -40,7 +40,7 @@ const timelineData = [
                 <div class="relative flex items-start mb-8">
                     <!-- Dot with glow -->
                     <div
-                        class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-cyan-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.7)]"
+                        class="absolute left-4 md:left-1/2 -translate-x-[6.8005px] w-4 h-4 bg-cyan-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.7)]"
                     ></div>
 
                     <!-- Content shifts right on mobile, alternates on desktop -->
@@ -58,5 +58,5 @@ const timelineData = [
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
