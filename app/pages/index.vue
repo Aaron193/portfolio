@@ -18,5 +18,3 @@ useSeoMeta({
     <SectionsTimeline />
     <SectionsProjects />
 </template>
-
-<style scoped></style>

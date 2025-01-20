@@ -10,9 +10,13 @@ onMounted(() => {
         setup(canvas, (screen.width * screen.height) / 100 ** 2);
     }
 });
+
+const handleClickButton = () => {
+    alert('This button has not been programmed yet, sorry :(');
+};
 </script>
 <template>
-    <section class="relative min-h-screen">
+    <section id="intro" class="relative min-h-screen">
         <canvas ref="canvasRef" class="absolute inset-0 w-full h-full"></canvas>
         <div class="relative z-10 flex items-center justify-center min-h-screen">
             <div class="mx-auto max-w-xl space-y-8 text-center">
@@ -32,10 +36,13 @@ onMounted(() => {
                 </div>
 
                 <div class="buttons flex justify-center gap-8">
-                    <button class="btn min-w-[150px] p-0.5 rounded-xl bg-gradient-to-r from-blue-500 to-green-500">
+                    <button @click="handleClickButton" class="btn min-w-[150px] p-0.5 rounded-xl bg-gradient-to-r from-blue-500 to-green-500">
                         <span class="block px-4 py-2 rounded-xl bg-gray-950">See Resume</span>
                     </button>
-                    <button class="btn min-w-[150px] px-4 py-2 rounded-xl bg-gradient-to-r text-gray-950 from-blue-500 to-green-500 font-extrabold">
+                    <button
+                        @click="handleClickButton"
+                        class="btn min-w-[150px] px-4 py-2 rounded-xl bg-gradient-to-r text-gray-950 from-blue-500 to-green-500 font-extrabold"
+                    >
                         Let's talk
                     </button>
                 </div>
@@ -44,14 +51,14 @@ onMounted(() => {
                 <div class="flex items-center justify-center space-x-4">
                     <a
                         href="https://github.com/aaron193"
-                        class="w-12 h-12 rounded-full border-2 border-cyan-500 flex items-center justify-center"
+                        class="w-12 h-12 rounded-full border-2 border-cyan-500 flex items-center justify-center hover:bg-cyan-950"
                         target="_blank"
                     >
                         <Icon name="mdi:github" size="24" />
                     </a>
                     <a
                         href="https://linkedin.com/in/aaronmark05"
-                        class="w-12 h-12 rounded-full border-2 border-cyan-500 flex items-center justify-center"
+                        class="w-12 h-12 rounded-full border-2 border-cyan-500 flex items-center justify-center hover:bg-cyan-950"
                         target="_blank"
                     >
                         <Icon name="mdi:linkedin" size="24" />
