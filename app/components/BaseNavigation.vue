@@ -33,9 +33,9 @@ onUnmounted(() => {
                 <li>
                     <NuxtLink to="#timeline" class="gradient-underline">Timeline</NuxtLink>
                 </li>
-                <!-- <li>
-                    <NuxtLink to="#about" class="gradient-underline">About</NuxtLink>
-                </li> -->
+                <li>
+                    <NuxtLink to="#skills" class="gradient-underline">Skills</NuxtLink>
+                </li>
                 <li>
                     <NuxtLink to="#projects" class="gradient-underline">Projects</NuxtLink>
                 </li>
