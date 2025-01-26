@@ -16,5 +16,6 @@ useSeoMeta({
 <template>
     <SectionsIntro />
     <SectionsTimeline />
+    <SectionsSkills />
     <SectionsProjects />
 </template>
