@@ -14,6 +14,16 @@ onMounted(() => {
 const handleClickButton = () => {
     alert('This button has not been programmed yet, sorry :(');
 };
+
+const contactModalOpen = ref(false);
+
+const showContactModal = () => {
+    contactModalOpen.value = true;
+};
+
+const closeContactModal = () => {
+    contactModalOpen.value = false;
+};
 </script>
 <template>
     <section id="intro" class="relative min-h-screen">
@@ -40,11 +50,17 @@ const handleClickButton = () => {
                         <span class="block px-4 py-2 rounded-xl bg-gray-950">See Resume</span>
                     </button>
                     <button
-                        @click="handleClickButton"
+                        @click="showContactModal"
                         class="btn min-w-[150px] px-4 py-2 rounded-xl bg-gradient-to-r text-gray-950 from-blue-500 to-green-500 font-extrabold"
                     >
                         Let's talk
                     </button>
+
+                    <Modal v-if="contactModalOpen" @close="closeContactModal">
+                        <template v-slot:body>
+                            <ContactForm />
+                        </template>
+                    </Modal>
                 </div>
 
                 <!-- Social buttons -->

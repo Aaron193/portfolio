@@ -19,6 +19,8 @@
         "vue-router": "latest"
     },
     "devDependencies": {
-        "@iconify-json/logos": "^1.2.4"
+        "@iconify-json/devicon": "^1.2.13",
+        "@iconify-json/logos": "^1.2.4",
+        "@iconify-json/mdi": "^1.2.3"
     }
 }
