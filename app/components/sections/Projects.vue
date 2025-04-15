@@ -48,7 +48,7 @@ const projects = [
         technologies: ['Node.js', 'TypeScript', 'uWebSockets', 'bitecs (ECS)', 'Box2D (Physics)'],
         github: 'https://github.com/Aaron193/asteroids',
         demo: '',
-        date: '2022',
+        date: '2025',
     },
 ];
 </script>
