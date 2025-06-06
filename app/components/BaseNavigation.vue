@@ -78,7 +78,7 @@ onUnmounted(() => {
                 <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5">
                     <div class="w-full h-full bg-zinc-950 rounded-xl"></div>
                 </div>
-                <img
+                <NuxtImg
                     :src="isMobileMenuOpen ? '/close.svg' : '/menu.svg'"
                     width="24"
                     height="24"
