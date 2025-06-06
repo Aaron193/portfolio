@@ -27,7 +27,7 @@ const handleClickButton = () => {
                             >Aaron&nbsp;Mark</span
                         >
                     </h1>
-                    <div class="text-zinc-300 rounded-xl shadow-xl text-base sm:text-lg bg-zinc-900/15 backdrop-blur-md text-justify px-3 py-2">
+                    <div class="text-zinc-300 rounded-xl text-base sm:text-lg bg-zinc-900/15 backdrop-blur-sm text-justify px-3 py-2">
                         I'm currently a student studying <strong>Computer Science & Engineering</strong> at the University of Connecticut. I have a
                         passion for programming and learning how things work. I started learning how to code by reverse engineering web games, and
                         found a passion for the complex systems and underlying code that makes them up.
