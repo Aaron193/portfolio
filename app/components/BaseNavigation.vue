@@ -78,10 +78,12 @@ onUnmounted(() => {
                 <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5">
                     <div class="w-full h-full bg-zinc-950 rounded-xl"></div>
                 </div>
-                <Icon
-                    :name="isMobileMenuOpen ? 'mdi:close' : 'mdi:menu'"
-                    size="24"
+                <img
+                    :src="isMobileMenuOpen ? '/close.svg' : '/menu.svg'"
+                    width="24"
+                    height="24"
                     class="relative text-zinc-200 hover:text-amber-500 transition-colors"
+                    draggable="false"
                 />
             </button>
         </div>
