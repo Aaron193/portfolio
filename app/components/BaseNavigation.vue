@@ -29,7 +29,7 @@ onUnmounted(() => {
 <template>
     <header
         :class="{ '-translate-y-full': isScrollingDown, 'translate-y-0': !isScrollingDown }"
-        class="z-20 py-2 flex justify-center fixed w-full transition-transform duration-300"
+        class="z-[1000] py-2 flex justify-center fixed w-full transition-transform duration-300"
     >
         <!-- Desktop Navigation -->
         <nav class="relative items-center px-5 py-3 rounded-xl hidden md:inline-flex">
@@ -73,7 +73,7 @@ onUnmounted(() => {
         </nav>
 
         <!-- Mobile Menu Button -->
-        <div class="md:hidden fixed top-4 right-4 z-30">
+        <div class="md:hidden fixed top-4 right-4 z-[1100]">
             <button @click="toggleMobileMenu" class="relative inline-flex items-center p-3 rounded-xl" aria-label="Toggle mobile menu">
                 <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5">
                     <div class="w-full h-full bg-zinc-950 rounded-xl"></div>
@@ -93,7 +93,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Mobile Menu -->
-        <div v-if="isMobileMenuOpen" class="md:hidden fixed inset-0 z-20 bg-black bg-opacity-50 backdrop-blur-sm" @click="closeMobileMenu">
+        <div v-if="isMobileMenuOpen" class="md:hidden fixed inset-0 z-[900]" @click="closeMobileMenu">
             <div class="absolute top-20 right-4 w-64 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5" @click.stop>
                 <div class="w-full h-full bg-zinc-950 rounded-xl p-6">
                     <ul class="flex flex-col gap-4 text-sm capitalize text-zinc-200">
