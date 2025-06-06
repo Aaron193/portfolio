@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 
 interface CarouselItem {
@@ -27,7 +27,9 @@ interface SmoothCarousel {
     onMouseLeave: () => void;
     itemWidth: number;
     items: CarouselItem[];
-    center: number;
+    center: ComputedRef<number>;
+    containerRef: Ref<HTMLElement | null>;
+    visibleCount: Ref<number>;
 }
 
 const carousels: CarouselConfig[] = [
@@ -83,23 +85,42 @@ const carousels: CarouselConfig[] = [
     },
 ];
 
-function useSmoothCarousel(items: CarouselItem[], visibleCount = 7, direction: 'ltr' | 'rtl' = 'ltr'): SmoothCarousel {
+function useSmoothCarousel(items: CarouselItem[], defaultVisibleCount = 7, direction: 'ltr' | 'rtl' = 'ltr') {
     const position = ref(0);
     const isHovered = ref(false);
     const hoveredIndex = ref<number | null>(null);
-
     let animationFrame: number | null = null;
-
     const speed = 0.4;
     const itemWidth = 72; // px (icon + gap)
 
+    const containerRef = ref<HTMLElement | null>(null);
+    const visibleCount = ref(defaultVisibleCount);
+    const center = computed(() => Math.floor(visibleCount.value / 2));
+
+    function updateVisibleCount() {
+        if (containerRef.value) {
+            const width = containerRef.value.offsetWidth;
+            visibleCount.value = Math.max(3, Math.floor(width / itemWidth));
+        }
+    }
+
+    onMounted(() => {
+        updateVisibleCount();
+        window.addEventListener('resize', updateVisibleCount);
+        animationFrame = requestAnimationFrame(animate);
+    });
+    onUnmounted(() => {
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+        window.removeEventListener('resize', updateVisibleCount);
+    });
+
     const displayItems = computed(() => [...items, ...items, ...items]);
-    const center = Math.floor(visibleCount / 2);
 
     const getTranslate = computed(() => {
         let pos = position.value % items.length;
         if (pos < 0) pos += items.length;
-        return -((pos + items.length) * itemWidth) + center * itemWidth;
+        // Center based on visibleCount
+        return -((pos + items.length) * itemWidth) + center.value * itemWidth;
     });
 
     const getCenterIndex = computed(() => {
@@ -123,21 +144,25 @@ function useSmoothCarousel(items: CarouselItem[], visibleCount = 7, direction: '
         isHovered.value = true;
         hoveredIndex.value = idx % items.length;
     };
-
     const onMouseLeave = () => {
         isHovered.value = false;
         hoveredIndex.value = null;
     };
 
-    onMounted(() => {
-        animationFrame = requestAnimationFrame(animate);
-    });
-
-    onUnmounted(() => {
-        if (animationFrame) cancelAnimationFrame(animationFrame);
-    });
-
-    return { displayItems, getTranslate, getCenterIndex, isHovered, hoveredIndex, onMouseEnter, onMouseLeave, itemWidth, items, center };
+    return {
+        displayItems,
+        getTranslate,
+        getCenterIndex,
+        isHovered,
+        hoveredIndex,
+        onMouseEnter,
+        onMouseLeave,
+        itemWidth,
+        items,
+        center,
+        containerRef,
+        visibleCount,
+    };
 }
 
 const smoothCarousels: SmoothCarousel[] = carousels.map(c => useSmoothCarousel(c.items, 7, c.direction));
@@ -165,10 +190,10 @@ const colorIconClass: Record<string, string> = {
 </script>
 
 <template>
-    <section class="py-20">
+    <section class="py-16">
         <div class="container mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-extrabold leading-tight mb-3">My Skills &amp; Technologies</h2>
+                <h2 class="text-4xl font-extrabold leading-tight mb-3">My Skills & Technologies</h2>
                 <p class="text-lg text-gray-500">A showcase of the languages, frameworks, and tools I work with.</p>
             </div>
             <div v-for="(carousel, idx) in carousels" :key="carousel.key" class="space-y-2 mb-8">
@@ -179,7 +204,11 @@ const colorIconClass: Record<string, string> = {
                     <h3 :class="['text-xl font-semibold', colorTextClass[carousel.color]]">{{ carousel.title }}</h3>
                 </div>
                 <div class="flex items-center justify-center gap-4 min-w-0">
-                    <div class="flex gap-4 overflow-x-hidden relative" style="max-width: 504px; height: 72px">
+                    <div
+                        class="flex gap-4 overflow-x-hidden relative w-full max-w-[504px]"
+                        style="height: 72px"
+                        :ref="el => (getSmoothCarousel(idx).containerRef.value = el as HTMLElement)"
+                    >
                         <div
                             class="flex transition-transform duration-0"
                             :style="{
