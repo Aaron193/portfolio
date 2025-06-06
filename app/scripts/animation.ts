@@ -27,13 +27,16 @@ const _MAX_RANGE = Math.max(_ALIGNMENT_RANGE, _SEPARATION_RANGE, _COHESION_RANGE
 // Spatial hash
 const _GRID_SIZE = 50;
 
+const BOID_COLOR = '#b04807';
+const LINE_COLOR = '#b04807';
+
 function createBoidImage(): HTMLCanvasElement {
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     canvas.width = _BOID_SIZE * 2;
     canvas.height = _BOID_SIZE * 2;
 
-    ctx.fillStyle = 'cyan';
+    ctx.fillStyle = BOID_COLOR;
     ctx.beginPath();
     ctx.moveTo(_BOID_SIZE * 2, _BOID_SIZE);
     ctx.lineTo(0, 0);
@@ -238,7 +241,7 @@ class Simulation {
         // this.ctx.restore();
         // draw lines connecting close boids, line will be brighter if closer
         this.ctx.save();
-        this.ctx.strokeStyle = 'gray';
+        this.ctx.strokeStyle = LINE_COLOR;
         this.ctx.lineWidth = 1;
         for (let i = 0; i < this.boids.length; i++) {
             const boid = this.boids[i]!;

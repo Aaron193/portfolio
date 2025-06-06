@@ -7,6 +7,7 @@ export default {
         },
         fontFamily: {
             Montserrat: ['Montserrat', 'sans-serif'],
+            Inter: ['Inter', 'sans-serif'],
         },
         container: {
             center: true,

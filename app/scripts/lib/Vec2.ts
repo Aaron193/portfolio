@@ -7,7 +7,7 @@ export class Vec2 {
         this.y = y;
     }
 
-    norm() {
+    norm(): Vec2 {
         const mag = Math.sqrt(this.x * this.x + this.y * this.y);
         if (mag > 0) {
             this.x /= mag;
@@ -16,19 +16,19 @@ export class Vec2 {
         return this;
     }
 
-    scale(factor: number) {
+    scale(factor: number): Vec2 {
         this.x *= factor;
         this.y *= factor;
         return this;
     }
 
-    setXY(x: number, y: number) {
+    setXY(x: number, y: number): Vec2 {
         this.x = x;
         this.y = y;
         return this;
     }
 
-    reset() {
+    reset(): Vec2 {
         this.x = 0;
         this.y = 0;
         return this;

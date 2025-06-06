@@ -1,96 +1,280 @@
 <script setup lang="ts">
-const languages = [
-    { name: 'TypeScript', icon: 'logos:typescript-icon' },
-    { name: 'JavaScript', icon: 'logos:javascript' },
-    { name: 'Python', icon: 'logos:python' },
-    { name: 'C', icon: 'logos:c' },
-    { name: 'Java', icon: 'logos:java' },
-    { name: 'PHP', icon: 'devicon:php' },
-    { name: 'HTML', icon: 'logos:html-5' },
-    { name: 'CSS', icon: 'logos:css-3' },
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
+
+interface CarouselItem {
+    name: string;
+    icon: string;
+    desc: string;
+}
+
+interface CarouselConfig {
+    key: string;
+    title: string;
+    color: string;
+    icon: string;
+    direction: 'ltr' | 'rtl';
+    items: CarouselItem[];
+}
+
+interface SmoothCarousel {
+    displayItems: ComputedRef<CarouselItem[]>;
+    getTranslate: ComputedRef<number>;
+    getCenterIndex: ComputedRef<number>;
+    isHovered: Ref<boolean>;
+    hoveredIndex: Ref<number | null>;
+    onMouseEnter: (idx: number) => void;
+    onMouseLeave: () => void;
+    itemWidth: number;
+    items: CarouselItem[];
+    center: number;
+}
+
+const carousels: CarouselConfig[] = [
+    {
+        key: 'languages',
+        title: 'Languages',
+        color: 'amber',
+        icon: 'mdi:web',
+        direction: 'ltr',
+        items: [
+            { name: 'TypeScript', icon: 'logos:typescript-icon', desc: 'Strongly typed superset of JavaScript' },
+            { name: 'JavaScript', icon: 'logos:javascript', desc: 'Versatile scripting language for the web' },
+            { name: 'Python', icon: 'logos:python', desc: 'Popular for data science and automation' },
+            { name: 'C', icon: 'logos:c', desc: 'Low-level systems programming language' },
+            { name: 'C++', icon: 'logos:c-plusplus', desc: 'Powerful language for system and application development' },
+            { name: 'Java', icon: 'logos:java', desc: 'Widely used for enterprise applications' },
+            { name: 'PHP', icon: 'devicon:php', desc: 'Server-side scripting for web development' },
+            { name: 'HTML', icon: 'logos:html-5', desc: 'Markup language for web pages' },
+            { name: 'CSS', icon: 'logos:css-3', desc: 'Style sheet language for web design' },
+        ],
+    },
+    {
+        key: 'technologies',
+        title: 'Technologies',
+        color: 'orange',
+        icon: 'mdi:cube-outline',
+        direction: 'rtl',
+        items: [
+            { name: 'Node.js', icon: 'logos:nodejs-icon', desc: 'JavaScript runtime for server-side applications' },
+            { name: 'Vue.js', icon: 'logos:vue', desc: 'Progressive JavaScript framework' },
+            { name: 'Laravel', icon: 'logos:laravel', desc: 'PHP framework for web artisans' },
+            { name: 'MongoDB', icon: 'logos:mongodb-icon', desc: 'NoSQL database for modern apps' },
+            { name: 'MySQL', icon: 'logos:mysql-icon', desc: 'Relational database management system' },
+            { name: 'Webpack', icon: 'logos:webpack', desc: 'Module bundler for JavaScript' },
+            { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon', desc: 'Utility-first CSS framework' },
+            { name: 'Bootstrap', icon: 'logos:bootstrap', desc: 'Popular CSS framework' },
+        ],
+    },
+    {
+        key: 'tools',
+        title: 'Tools',
+        color: 'red',
+        icon: 'mdi:tools',
+        direction: 'ltr',
+        items: [
+            { name: 'Git', icon: 'mdi:git', desc: 'Distributed version control system' },
+            { name: 'GitHub', icon: 'mdi:github', desc: 'Code hosting platform for version control' },
+            { name: 'Docker', icon: 'logos:docker-icon', desc: 'Containerization platform' },
+            { name: 'VS Code', icon: 'logos:visual-studio-code', desc: 'Popular code editor' },
+            { name: 'Linode', icon: 'logos:linode', desc: 'Cloud hosting provider' },
+            { name: 'Linux', icon: 'mdi:linux', desc: 'Open-source operating system' },
+        ],
+    },
 ];
 
-const technologies = [
-    { name: 'Node.js', icon: 'logos:nodejs-icon' },
-    { name: 'Vue.js', icon: 'logos:vue' },
-    { name: 'Laravel', icon: 'logos:laravel' },
-    { name: 'MongoDB', icon: 'logos:mongodb-icon' },
-    { name: 'MySQL', icon: 'logos:mysql-icon' },
-    { name: 'Webpack', icon: 'logos:webpack' },
-    { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon' },
-    { name: 'Bootstrap', icon: 'logos:bootstrap' },
-];
+function useSmoothCarousel(items: CarouselItem[], visibleCount = 7, direction: 'ltr' | 'rtl' = 'ltr'): SmoothCarousel {
+    const position = ref(0);
+    const isHovered = ref(false);
+    const hoveredIndex = ref<number | null>(null);
 
-const tools = [
-    { name: 'Git', icon: 'mdi:git' },
-    { name: 'GitHub', icon: 'mdi:github' },
-    { name: 'Docker', icon: 'logos:docker-icon' },
-    { name: 'VS Code', icon: 'logos:visual-studio-code' },
-    { name: 'Linode', icon: 'logos:linode' },
-    { name: 'Linux', icon: 'mdi:linux' },
-];
+    let animationFrame: number | null = null;
+
+    const speed = 0.4;
+    const itemWidth = 72; // px (icon + gap)
+
+    const displayItems = computed(() => [...items, ...items, ...items]);
+    const center = Math.floor(visibleCount / 2);
+
+    const getTranslate = computed(() => {
+        let pos = position.value % items.length;
+        if (pos < 0) pos += items.length;
+        return -((pos + items.length) * itemWidth) + center * itemWidth;
+    });
+
+    const getCenterIndex = computed(() => {
+        let pos = position.value % items.length;
+        if (pos < 0) pos += items.length;
+        return ((Math.round(pos) % items.length) + items.length) % items.length;
+    });
+
+    let then = performance.now();
+    function animate() {
+        const now = performance.now();
+        const delta = (now - then) / 1000; // in seconds
+        then = now;
+        if (!isHovered.value) {
+            position.value += (direction === 'rtl' ? -1 : 1) * speed * delta;
+        }
+        animationFrame = requestAnimationFrame(animate);
+    }
+
+    const onMouseEnter = (idx: number) => {
+        isHovered.value = true;
+        hoveredIndex.value = idx % items.length;
+    };
+
+    const onMouseLeave = () => {
+        isHovered.value = false;
+        hoveredIndex.value = null;
+    };
+
+    onMounted(() => {
+        animationFrame = requestAnimationFrame(animate);
+    });
+
+    onUnmounted(() => {
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+    });
+
+    return { displayItems, getTranslate, getCenterIndex, isHovered, hoveredIndex, onMouseEnter, onMouseLeave, itemWidth, items, center };
+}
+
+const smoothCarousels: SmoothCarousel[] = carousels.map(c => useSmoothCarousel(c.items, 7, c.direction));
+
+function getSmoothCarousel(idx: number): SmoothCarousel {
+    return smoothCarousels[idx]!;
+}
+
+// have to do this because tailwind tweaking
+const colorTextClass: Record<string, string> = {
+    amber: 'text-amber-400',
+    orange: 'text-orange-400',
+    red: 'text-red-400',
+};
+const colorBgClass: Record<string, string> = {
+    amber: 'bg-amber-500/10',
+    orange: 'bg-orange-500/10',
+    red: 'bg-red-500/10',
+};
+const colorIconClass: Record<string, string> = {
+    amber: 'text-amber-500',
+    orange: 'text-orange-500',
+    red: 'text-red-500',
+};
 </script>
 
 <template>
-    <section id="skills" class="py-16 px-4 bg-gray-950">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-bold text-center mb-12">Skills</h1>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Frontend Category -->
-                <div class="bg-gray-900/50 rounded-xl p-6 hover:bg-gray-900/70 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-12 h-12 flex items-center justify-center bg-blue-500/10 rounded-lg">
-                            <Icon name="mdi:web" class="text-blue-500" size="24" />
-                        </div>
-                        <h3 class="text-2xl font-semibold text-blue-400">Languages</h3>
+    <section class="py-20">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold leading-tight mb-3">My Skills &amp; Technologies</h2>
+                <p class="text-lg text-gray-500">A showcase of the languages, frameworks, and tools I work with.</p>
+            </div>
+            <div v-for="(carousel, idx) in carousels" :key="carousel.key" class="space-y-2 mb-8">
+                <div class="flex items-center gap-4 justify-center">
+                    <div :class="['w-10 h-10 flex items-center justify-center rounded-lg', colorBgClass[carousel.color]]">
+                        <Icon :name="carousel.icon" :class="colorIconClass[carousel.color]" size="25" />
                     </div>
-                    <div v-for="language in languages" class="space-y-3">
-                        <div class="flex items-center gap-2 text-gray-300">
-                            <div class="w-6 flex-shrink-0">
-                                <Icon :name="language.icon" size="20" />
+                    <h3 :class="['text-xl font-semibold', colorTextClass[carousel.color]]">{{ carousel.title }}</h3>
+                </div>
+                <div class="flex items-center justify-center gap-4 min-w-0">
+                    <div class="flex gap-4 overflow-x-hidden relative" style="max-width: 504px; height: 72px">
+                        <div
+                            class="flex transition-transform duration-0"
+                            :style="{
+                                width: getSmoothCarousel(idx).displayItems.value.length * getSmoothCarousel(idx).itemWidth + 'px',
+                                transform: `translateX(${getSmoothCarousel(idx).getTranslate.value}px)`,
+                            }"
+                        >
+                            <div
+                                v-for="(item, i) in getSmoothCarousel(idx).displayItems.value"
+                                :key="i"
+                                class="flex-shrink-0 cursor-pointer transition-all duration-300"
+                                :class="[
+                                    (getSmoothCarousel(idx).isHovered &&
+                                        getSmoothCarousel(idx).hoveredIndex.value === i % getSmoothCarousel(idx).items.length) ||
+                                    (!getSmoothCarousel(idx).isHovered &&
+                                        i % getSmoothCarousel(idx).items.length === getSmoothCarousel(idx).getCenterIndex.value)
+                                        ? 'scale-125 z-10'
+                                        : i % getSmoothCarousel(idx).items.length === getSmoothCarousel(idx).getCenterIndex.value
+                                        ? 'scale-110 z-10'
+                                        : 'scale-100 opacity-60',
+                                ]"
+                                @mouseenter="getSmoothCarousel(idx).onMouseEnter(i)"
+                                @mouseleave="getSmoothCarousel(idx).onMouseLeave"
+                                style="width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin-right: 8px"
+                            >
+                                <Icon
+                                    :name="item.icon!"
+                                    :size="
+                                        (getSmoothCarousel(idx).isHovered &&
+                                            getSmoothCarousel(idx).hoveredIndex.value === i % getSmoothCarousel(idx).items.length) ||
+                                        (!getSmoothCarousel(idx).isHovered &&
+                                            i % getSmoothCarousel(idx).items.length === getSmoothCarousel(idx).getCenterIndex.value)
+                                            ? 36
+                                            : i % getSmoothCarousel(idx).items.length === getSmoothCarousel(idx).getCenterIndex.value
+                                            ? 32
+                                            : 28
+                                    "
+                                />
                             </div>
-                            <span>{{ language.name }}</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- Backend Category -->
-                <div class="bg-gray-900/50 rounded-xl p-6 hover:bg-gray-900/70 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-12 h-12 flex items-center justify-center bg-green-500/10 rounded-lg">
-                            <Icon name="mdi:cube-outline" class="text-green-500" size="24" />
-                        </div>
-                        <h3 class="text-2xl font-semibold text-green-400">Technologies</h3>
-                    </div>
-                    <div v-for="technology in technologies" class="space-y-3">
-                        <div class="flex items-center gap-2 text-gray-300">
-                            <div class="w-6 flex-shrink-0">
-                                <Icon :name="technology.icon" size="20" />
-                            </div>
-                            <span>{{ technology.name }}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tools Category -->
-                <div class="bg-gray-900/50 rounded-xl p-6 hover:bg-gray-900/70 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-12 h-12 flex items-center justify-center bg-purple-500/10 rounded-lg">
-                            <Icon name="mdi:tools" class="text-purple-500" size="24" />
-                        </div>
-                        <h3 class="text-2xl font-semibold text-purple-400">Tooling</h3>
-                    </div>
-                    <div v-for="tool in tools" class="space-y-3">
-                        <div class="flex items-center gap-2 text-gray-300">
-                            <div class="w-6 flex-shrink-0">
-                                <Icon :name="tool.icon" size="20" />
-                            </div>
-                            <span>{{ tool.name }}</span>
-                        </div>
-                    </div>
+                <div class="flex flex-col items-center text-center min-h-[2.5em] text-zinc-400 text-sm mb-6">
+                    <Transition name="fade-desc" mode="out-in" :duration="250">
+                        <span
+                            class="text-zinc-300 text-base"
+                            :key="
+                                getSmoothCarousel(idx).isHovered && getSmoothCarousel(idx).hoveredIndex.value !== null
+                                    ? 'hover-' + getSmoothCarousel(idx).hoveredIndex.value
+                                    : 'center-' + getSmoothCarousel(idx).getCenterIndex.value
+                            "
+                        >
+                            {{
+                                getSmoothCarousel(idx).isHovered &&
+                                getSmoothCarousel(idx).hoveredIndex.value !== null &&
+                                carousel.items[getSmoothCarousel(idx).hoveredIndex.value!]
+                                    ? carousel.items[getSmoothCarousel(idx).hoveredIndex.value!]?.name ?? ''
+                                    : carousel.items[getSmoothCarousel(idx).getCenterIndex.value]?.name ?? ''
+                            }}
+                        </span>
+                    </Transition>
+                    <Transition name="fade-desc" mode="out-in" :duration="250">
+                        <span
+                            :key="
+                                getSmoothCarousel(idx).isHovered && getSmoothCarousel(idx).hoveredIndex.value !== null
+                                    ? 'hover-' + getSmoothCarousel(idx).hoveredIndex.value
+                                    : 'center-' + getSmoothCarousel(idx).getCenterIndex.value
+                            "
+                        >
+                            {{
+                                getSmoothCarousel(idx).isHovered &&
+                                getSmoothCarousel(idx).hoveredIndex.value !== null &&
+                                carousel.items[getSmoothCarousel(idx).hoveredIndex.value!]
+                                    ? carousel.items[getSmoothCarousel(idx).hoveredIndex.value!]?.desc ?? ''
+                                    : carousel.items[getSmoothCarousel(idx).getCenterIndex.value]?.desc ?? ''
+                            }}
+                        </span>
+                    </Transition>
                 </div>
             </div>
         </div>
     </section>
 </template>
+
+<style scoped>
+.fade-desc-enter-active,
+.fade-desc-leave-active {
+    transition: opacity 0.3s;
+}
+.fade-desc-enter-from,
+.fade-desc-leave-to {
+    opacity: 0;
+}
+.fade-desc-enter-to,
+.fade-desc-leave-from {
+    opacity: 1;
+}
+</style>

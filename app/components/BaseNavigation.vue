@@ -1,11 +1,20 @@
 <script setup lang="ts">
 const isScrollingDown = ref(false);
+const isMobileMenuOpen = ref(false);
 let lastScrollTop = 0;
 
 const handleScroll = () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     isScrollingDown.value = scrollTop > lastScrollTop;
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+};
+
+const toggleMobileMenu = () => {
+    isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
+
+const closeMobileMenu = () => {
+    isMobileMenuOpen.value = false;
 };
 
 onMounted(() => {
@@ -22,11 +31,12 @@ onUnmounted(() => {
         :class="{ '-translate-y-full': isScrollingDown, 'translate-y-0': !isScrollingDown }"
         class="z-20 py-2 flex justify-center fixed w-full transition-transform duration-300"
     >
-        <nav class="relative inline-flex items-center px-5 py-3 rounded-xl">
-            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 to-green-500 p-0.5">
-                <div class="w-full h-full bg-gray-950 rounded-xl"></div>
+        <!-- Desktop Navigation -->
+        <nav class="relative items-center px-5 py-3 rounded-xl hidden md:inline-flex">
+            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5">
+                <div class="w-full h-full bg-zinc-950 rounded-xl"></div>
             </div>
-            <ul class="relative flex gap-6 text-sm capitalize text-gray-200">
+            <ul class="relative flex gap-6 text-sm capitalize text-zinc-200 items-center">
                 <li>
                     <NuxtLink to="#intro" class="gradient-underline">Home</NuxtLink>
                 </li>
@@ -39,8 +49,111 @@ onUnmounted(() => {
                 <li>
                     <NuxtLink to="#projects" class="gradient-underline">Projects</NuxtLink>
                 </li>
+                <li>
+                    <a href="https://github.com/aaron193" target="_blank" aria-label="GitHub" class="hover:text-amber-500 transition-colors">
+                        <Icon name="mdi:github" size="22" />
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="https://linkedin.com/in/aaronmark05"
+                        target="_blank"
+                        aria-label="LinkedIn"
+                        class="hover:text-amber-500 transition-colors"
+                    >
+                        <Icon name="mdi:linkedin" size="22" />
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:aaron.mark@uconn.edu" aria-label="Email" class="hover:text-amber-500 transition-colors">
+                        <Icon name="mdi:email" size="22" />
+                    </a>
+                </li>
             </ul>
         </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden fixed top-4 right-4 z-30">
+            <button @click="toggleMobileMenu" class="relative inline-flex items-center p-3 rounded-xl" aria-label="Toggle mobile menu">
+                <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5">
+                    <div class="w-full h-full bg-zinc-950 rounded-xl"></div>
+                </div>
+                <Icon
+                    :name="isMobileMenuOpen ? 'mdi:close' : 'mdi:menu'"
+                    size="24"
+                    class="relative text-zinc-200 hover:text-amber-500 transition-colors"
+                />
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div v-if="isMobileMenuOpen" class="md:hidden fixed inset-0 z-20 bg-black bg-opacity-50 backdrop-blur-sm" @click="closeMobileMenu">
+            <div class="absolute top-20 right-4 w-64 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5" @click.stop>
+                <div class="w-full h-full bg-zinc-950 rounded-xl p-6">
+                    <ul class="flex flex-col gap-4 text-sm capitalize text-zinc-200">
+                        <li>
+                            <NuxtLink
+                                to="#intro"
+                                class="block py-2 px-3 rounded-lg hover:bg-zinc-900 transition-colors gradient-underline"
+                                @click="closeMobileMenu"
+                            >
+                                Home
+                            </NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink
+                                to="#timeline"
+                                class="block py-2 px-3 rounded-lg hover:bg-zinc-900 transition-colors gradient-underline"
+                                @click="closeMobileMenu"
+                            >
+                                Timeline
+                            </NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink
+                                to="#skills"
+                                class="block py-2 px-3 rounded-lg hover:bg-zinc-900 transition-colors gradient-underline"
+                                @click="closeMobileMenu"
+                            >
+                                Skills
+                            </NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink
+                                to="#projects"
+                                class="block py-2 px-3 rounded-lg hover:bg-zinc-900 transition-colors gradient-underline"
+                                @click="closeMobileMenu"
+                            >
+                                Projects
+                            </NuxtLink>
+                        </li>
+                        <li class="border-t border-zinc-700 pt-4 mt-4">
+                            <div class="flex gap-4 justify-center">
+                                <a
+                                    href="https://github.com/aaron193"
+                                    target="_blank"
+                                    aria-label="GitHub"
+                                    class="hover:text-amber-500 transition-colors"
+                                >
+                                    <Icon name="mdi:github" size="24" />
+                                </a>
+                                <a
+                                    href="https://linkedin.com/in/aaronmark05"
+                                    target="_blank"
+                                    aria-label="LinkedIn"
+                                    class="hover:text-amber-500 transition-colors"
+                                >
+                                    <Icon name="mdi:linkedin" size="24" />
+                                </a>
+                                <a href="mailto:aaron.mark@uconn.edu" aria-label="Email" class="hover:text-amber-500 transition-colors">
+                                    <Icon name="mdi:email" size="24" />
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </header>
 </template>
 
@@ -56,7 +169,7 @@ onUnmounted(() => {
     bottom: -2px;
     width: 100%;
     height: 2px;
-    background: linear-gradient(to right, #3b82f6, #10b981);
+    background: linear-gradient(to right, #fd9a00, #fb2c36);
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease;
