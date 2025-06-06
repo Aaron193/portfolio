@@ -4,44 +4,45 @@ const timelineData = [
         year: 'Nov 2024',
         title: 'Student Web Developer',
         content:
-            'Developing modern web applications using the Laravel web framework for UConn <a class="text-gray-300 underline" target="_blank" href="https://dxgroup.core.uconn.edu/">Internal Insights & Innovation.</a>',
+            'Developing modern web applications using the Laravel web framework for UConn <a class="text-zinc-300 underline" target="_blank" href="https://dxgroup.core.uconn.edu/">Internal Insights & Innovation.</a> Some of my contributions include <a class="text-zinc-300 underline" target="_blank" href="https://wellscan.io/">Wellscan.io</a> , MSIS Tool, and ROSSA.',
     },
     {
         year: 'Aug 2023',
         title: 'University of Connecticut',
         content:
-            "Joined the Computer Science & Engineering Class of 2027, achieving <strong>Dean's List</strong> honors three times in the College of Engineering.",
+            "Joined the Computer Science & Engineering Class of 2027, achieving <strong>Dean's List</strong> honors 4x in the College of Engineering with a GPA of <strong>3.97</strong>/4.0.",
     },
     {
-        year: 'Winter 2021',
+        year: 'Winter 2020 & 2021',
         title: 'Ski Instructor',
         content:
-            'Taught the fundamentals of skiing to children aged 4-14 at <a class="text-gray-300 underline" target="blank" href="https://skisundown.com/">Ski Sundown</a>. Used progressional learning techniques while maintaining a fun and safe environment.',
+            'Taught the fundamentals of skiing to children aged 4-14 at <a class="text-zinc-300 underline" target="blank" href="https://skisundown.com/">Ski Sundown</a>. Used progressional learning techniques while maintaining a fun and safe environment.',
     },
     {
-        year: 'Oct 2020',
-        title: 'Some Random Event',
-        content: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, est. Nam cupiditate earum labore voluptas?',
+        year: 'Winter 2020',
+        title: 'My first line of code',
+        content:
+            'My first line of code was modifying a jQuery TamperMonkey script that altered some HTML on a webpage. Oh, if only I knew what I was getting into...',
     },
 ];
 </script>
 
 <template>
-    <section id="timeline" class="flex flex-col items-center py-16 px-4 bg-gray-950">
-        <h1 class="text-4xl md:text-5xl font-bold py-8 md:py-12">Timeline</h1>
-
+    <section id="timeline" class="flex flex-col items-center py-16 px-4 bg-zinc-950">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold leading-tight mb-3">My Timeline</h2>
+            <p class="text-lg text-gray-500">A very scientific timeline of my life.</p>
+        </div>
         <div class="w-full max-w-4xl relative">
             <!-- Vertical bar -->
-            <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-cyan-500"></div>
+            <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-amber-500"></div>
 
             <!-- Timeline items -->
             <div v-for="(event, index) in timelineData" :key="index">
                 <!-- All events stack on the right side on mobile -->
                 <div class="relative flex items-start mb-8">
                     <!-- Dot with glow -->
-                    <div
-                        class="absolute left-4 md:left-1/2 -translate-x-[6.8005px] w-4 h-4 bg-cyan-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.7)]"
-                    ></div>
+                    <div class="absolute left-4 md:left-1/2 -translate-x-[6.8005px] w-4 h-4 bg-amber-500 rounded-full"></div>
 
                     <!-- Content shifts right on mobile, alternates on desktop -->
                     <div
@@ -51,9 +52,9 @@ const timelineData = [
                             'md:mr-auto md:text-right md:pr-8': index % 2 === 0,
                         }"
                     >
-                        <div class="text-base font-semibold text-cyan-500">{{ event.year }}</div>
+                        <div class="text-base font-semibold text-amber-500">{{ event.year }}</div>
                         <h3 class="text-xl font-bold mt-1">{{ event.title }}</h3>
-                        <p class="mt-2 text-gray-400" v-html="event.content"></p>
+                        <p class="mt-2 text-zinc-400" v-html="event.content"></p>
                     </div>
                 </div>
             </div>
