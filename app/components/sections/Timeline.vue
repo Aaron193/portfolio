@@ -20,7 +20,7 @@ const timelineData = [
     },
     {
         year: 'Winter 2020',
-        title: 'My first line of code',
+        title: 'My First Line of Code',
         content:
             'My first line of code was modifying a jQuery TamperMonkey script that altered some HTML on a webpage. Oh, if only I knew what I was getting into...',
     },
