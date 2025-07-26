@@ -28,7 +28,7 @@ const timelineData = [
 </script>
 
 <template>
-    <section id="timeline" class="flex flex-col items-center py-16 px-4 bg-zinc-950">
+    <section id="timeline" class="flex flex-col items-center py-16 px-4">
         <div class="text-center mb-12">
             <h2 class="text-4xl font-extrabold leading-tight mb-3">My Timeline</h2>
             <p class="text-lg text-gray-500">A very scientific timeline of my life.</p>

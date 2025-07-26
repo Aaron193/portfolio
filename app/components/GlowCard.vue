@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
         }"
     >
         <div ref="borderGlow" class="card-border"></div>
-        <div class="glow-card bg-zinc-900 rounded-xl overflow-hidden relative">
+        <div class="glow-card bg-slate-800/60 backdrop-blur-sm rounded-xl overflow-hidden relative">
             <div class="card-glow"></div>
             <div ref="mouseGlow" class="mouse-glow pointer-events-none absolute inset-0 z-20" style="opacity: 0"></div>
             <div class="relative z-10">
