@@ -34,7 +34,7 @@ onUnmounted(() => {
         <!-- Desktop Navigation -->
         <nav class="relative items-center px-5 py-3 rounded-xl hidden md:inline-flex">
             <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5">
-                <div class="w-full h-full bg-zinc-950 rounded-xl"></div>
+                <div class="w-full h-full bg-slate-900/95 backdrop-blur-sm rounded-xl"></div>
             </div>
             <ul class="relative flex gap-6 text-sm capitalize text-zinc-200 items-center">
                 <li>
@@ -76,7 +76,7 @@ onUnmounted(() => {
         <div class="md:hidden fixed top-4 right-4 z-[1100]">
             <button @click="toggleMobileMenu" class="relative inline-flex items-center p-3 rounded-xl" aria-label="Toggle mobile menu">
                 <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5">
-                    <div class="w-full h-full bg-zinc-950 rounded-xl"></div>
+                    <div class="w-full h-full bg-slate-900/95 backdrop-blur-sm rounded-xl"></div>
                 </div>
                 <span class="relative text-zinc-200 hover:text-amber-500 transition-colors">
                     <svg v-if="isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -95,12 +95,12 @@ onUnmounted(() => {
         <!-- Mobile Menu -->
         <div v-if="isMobileMenuOpen" class="md:hidden fixed inset-0 z-[900]" @click="closeMobileMenu">
             <div class="absolute top-20 right-4 w-64 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 p-0.5" @click.stop>
-                <div class="w-full h-full bg-zinc-950 rounded-xl p-6">
+                <div class="w-full h-full bg-slate-900/95 backdrop-blur-sm rounded-xl p-6">
                     <ul class="flex flex-col gap-4 text-sm capitalize text-zinc-200">
                         <li>
                             <NuxtLink
                                 to="#intro"
-                                class="block py-2 px-3 rounded-lg hover:bg-zinc-900 transition-colors gradient-underline"
+                                class="block py-2 px-3 rounded-lg hover:bg-slate-800/70 transition-colors gradient-underline"
                                 @click="closeMobileMenu"
                             >
                                 Home
@@ -109,7 +109,7 @@ onUnmounted(() => {
                         <li>
                             <NuxtLink
                                 to="#timeline"
-                                class="block py-2 px-3 rounded-lg hover:bg-zinc-900 transition-colors gradient-underline"
+                                class="block py-2 px-3 rounded-lg hover:bg-slate-800/70 transition-colors gradient-underline"
                                 @click="closeMobileMenu"
                             >
                                 Timeline
@@ -118,7 +118,7 @@ onUnmounted(() => {
                         <li>
                             <NuxtLink
                                 to="#skills"
-                                class="block py-2 px-3 rounded-lg hover:bg-zinc-900 transition-colors gradient-underline"
+                                class="block py-2 px-3 rounded-lg hover:bg-slate-800/70 transition-colors gradient-underline"
                                 @click="closeMobileMenu"
                             >
                                 Skills
@@ -127,7 +127,7 @@ onUnmounted(() => {
                         <li>
                             <NuxtLink
                                 to="#projects"
-                                class="block py-2 px-3 rounded-lg hover:bg-zinc-900 transition-colors gradient-underline"
+                                class="block py-2 px-3 rounded-lg hover:bg-slate-800/70 transition-colors gradient-underline"
                                 @click="closeMobileMenu"
                             >
                                 Projects

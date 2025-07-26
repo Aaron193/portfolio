@@ -1,23 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { setup } from '~/scripts/animation';
-
-const canvasRef = ref<HTMLCanvasElement | null>(null);
-
-onMounted(() => {
-    const canvas = canvasRef.value as HTMLCanvasElement;
-    if (canvas) {
-        setup(canvas, (screen.width * screen.height) / 100 ** 2);
-    }
-});
-
 const handleClickButton = () => {
     alert('Resume is coming soon!');
 };
 </script>
 <template>
     <section id="intro" class="relative min-h-screen overflow-hidden">
-        <canvas ref="canvasRef" class="absolute inset-0 w-full h-full"></canvas>
         <div class="relative z-10 flex items-center justify-center min-h-screen px-2 sm:px-0">
             <div class="mx-auto max-w-xl w-full space-y-8 text-left px-6">
                 <div class="mb-5 space-y-8">
@@ -39,7 +26,7 @@ const handleClickButton = () => {
                         @click="handleClickButton"
                         class="btn w-full sm:w-auto min-w-[150px] p-0.5 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-amber-500"
                     >
-                        <span class="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-zinc-950">
+                        <span class="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-900/90 backdrop-blur-sm">
                             <Icon name="mdi:download" size="20" />
                             See Resume
                         </span>

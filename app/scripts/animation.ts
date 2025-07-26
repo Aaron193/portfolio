@@ -222,23 +222,23 @@ class Simulation {
         this.ctx.globalAlpha = 0.5;
 
         // draw 100x100 grid
-        // this.ctx.save();
-        // this.ctx.globalAlpha = 0.1;
-        // this.ctx.strokeStyle = 'white';
-        // this.ctx.lineWidth = 1;
-        // for (let x = 0; x < this.canvas.width; x += _GRID_SIZE) {
-        //     this.ctx.beginPath();
-        //     this.ctx.moveTo(x, 0);
-        //     this.ctx.lineTo(x, this.canvas.height);
-        //     this.ctx.stroke();
-        // }
-        // for (let y = 0; y < this.canvas.height; y += _GRID_SIZE) {
-        //     this.ctx.beginPath();
-        //     this.ctx.moveTo(0, y);
-        //     this.ctx.lineTo(this.canvas.width, y);
-        //     this.ctx.stroke();
-        // }
-        // this.ctx.restore();
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.2;
+        this.ctx.strokeStyle = 'white';
+        this.ctx.lineWidth = 1;
+        for (let x = 0; x < this.canvas.width; x += _GRID_SIZE) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, 0);
+            this.ctx.lineTo(x, this.canvas.height);
+            this.ctx.stroke();
+        }
+        for (let y = 0; y < this.canvas.height; y += _GRID_SIZE) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, y);
+            this.ctx.lineTo(this.canvas.width, y);
+            this.ctx.stroke();
+        }
+        this.ctx.restore();
         // draw lines connecting close boids, line will be brighter if closer
         this.ctx.save();
         this.ctx.strokeStyle = LINE_COLOR;

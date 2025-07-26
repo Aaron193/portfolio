@@ -67,7 +67,7 @@ const projects = [
 </script>
 
 <template>
-    <section id="projects" class="py-16 px-4 bg-zinc-950">
+    <section id="projects" class="py-16 px-4">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-extrabold leading-tight mb-3">My Personal Projects</h2>
@@ -99,7 +99,7 @@ const projects = [
 
                         <!-- Technologies -->
                         <div class="flex flex-wrap gap-2">
-                            <span v-for="tech in project.technologies" class="px-3 py-1 text-sm rounded-full bg-zinc-900 text-amber-600">
+                            <span v-for="tech in project.technologies" class="px-3 py-1 text-sm rounded-full bg-slate-700/80 text-amber-400">
                                 {{ tech }}
                             </span>
                         </div>
