@@ -3,7 +3,16 @@ import SpatialHash, { type IBody } from './lib/SpatialHash';
 import { Vec2 } from './lib/Vec2';
 import { Mouse } from './Mouse';
 
-// Simulation parameters
+// try fix mobile tab bar (safari) resize glitch
+function setViewportHeightVar() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+setViewportHeightVar();
+window.addEventListener('resize', setViewportHeightVar);
+window.addEventListener('orientationchange', setViewportHeightVar);
+
 let _NUM_BOIDS = 150;
 const _BOID_SIZE = 5;
 const _BOID_SPEED = 15;
@@ -291,7 +300,13 @@ class Simulation {
 
     resize() {
         this.canvas.width = this.canvas.parentElement!.clientWidth;
-        this.canvas.height = this.canvas.parentElement!.clientHeight;
+        // Use the stable viewport height variable for height on iOS
+        const vh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--vh'));
+        if (vh && /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            this.canvas.height = Math.round(vh * 100);
+        } else {
+            this.canvas.height = this.canvas.parentElement!.clientHeight;
+        }
     }
 }
 
