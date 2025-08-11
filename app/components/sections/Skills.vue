@@ -190,7 +190,7 @@ const colorIconClass: Record<string, string> = {
 </script>
 
 <template>
-    <section class="py-16">
+    <section id="skills" class="py-16">
         <div class="container mx-auto">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-extrabold leading-tight mb-3">My Skills & Technologies</h2>
