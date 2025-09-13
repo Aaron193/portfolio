@@ -4,7 +4,7 @@ const timelineData = [
         year: 'Nov 2024',
         title: 'Student Web Developer',
         content:
-            'Developing modern web applications using the Laravel web framework for UConn <a class="text-zinc-300 underline" target="_blank" href="https://dxgroup.core.uconn.edu/">Internal Insights & Innovation.</a> Some of my contributions include <a class="text-zinc-300 underline" target="_blank" href="https://wellscan.io/">Wellscan.io</a> , MSIS Tool, and ROSSA.',
+            'Developing modern web applications using the Laravel web framework for UConn <a class="text-zinc-300 underline" target="_blank" href="https://i3.uconn.edu/">Internal Insights & Innovation (i3).</a> Some of my contributions include <a class="text-zinc-300 underline" target="_blank" href="https://wellscan.io/">Wellscan.io</a> and <a class="text-zinc-300 underline" target="_blank" href="https://rossa.uchc.edu/">ROSSA</a>.',
     },
     {
         year: 'Aug 2023',
