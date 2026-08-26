@@ -1,16 +1,21 @@
 <script setup lang="ts">
 const timelineData = [
     {
-        year: 'Nov 2024',
+        year: 'Summer 2026',
+        title: 'Software Development Intern',
+        content: 'Contributed to <strong>IBM HashiCorp</strong>\'s upcoming <strong>FedRAMP</strong>-compliant <strong>Vault</strong>-as-a-Service platform</strong>, building a cloud-native Go & Kubernetes notification system for enterprise customers. Worked with <strong>Kubernetes Operators, OpenShift, Vault, ArgoCD/GitOps, AWS, and distributed systems</strong>.',
+    },    
+    {
+        year: 'Nov 2024 - Present',
         title: 'Student Web Developer',
         content:
-            'Developing modern web applications using the Laravel web framework for UConn <a class="text-zinc-300 underline" target="_blank" href="https://i3.uconn.edu/">Internal Insights & Innovation (i3).</a> Some of my contributions include <a class="text-zinc-300 underline" target="_blank" href="https://wellscan.io/">Wellscan.io</a> and <a class="text-zinc-300 underline" target="_blank" href="https://rossa.uchc.edu/">ROSSA</a>.',
+            'Developing modern web applications using the <strong>Laravel</strong> web framework for UConn <a class="text-zinc-300 underline" target="_blank" href="https://i3.uconn.edu/">Internal Insights & Innovation (i3).</a> Some of my contributions include <a class="text-zinc-300 underline" target="_blank" href="https://wellscan.io/">Wellscan.io</a> and <a class="text-zinc-300 underline" target="_blank" href="https://rossa.uchc.edu/">ROSSA</a>.',
     },
     {
         year: 'Aug 2023',
         title: 'University of Connecticut',
         content:
-            "Joined the Computer Science & Engineering Class of 2027, achieving <strong>Dean's List</strong> honors 4x in the College of Engineering with a GPA of <strong>3.97</strong>/4.0.",
+            "Joined the Computer Science & Engineering Class of 2027, achieving <strong>Dean's List</strong> honors every semester in the College of Engineering with a GPA of <strong>3.96</strong>/4.0.",
     },
     {
         year: 'Winter 2020 & 2021',
